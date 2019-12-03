@@ -71,15 +71,19 @@
     return YES;
 }
 - (void)collectionView:(UICollectionView *)collectionView moveItemAtIndexPath:(NSIndexPath *)sourceIndexPath toIndexPath:(NSIndexPath *)destinationIndexPath{
+    NSMutableDictionary *tempDict;
     if (sourceIndexPath.section == 0) {
-        NSMutableDictionary *tempDict = _selArr[sourceIndexPath.item];
+         tempDict= _selArr[sourceIndexPath.item];
         _selArr = [_selArr mutableCopy];
         [_selArr removeObjectAtIndex:sourceIndexPath.item];
-        [_selArr insertObject:tempDict atIndex:destinationIndexPath.item];
     }else{
-        NSMutableDictionary *tempDict = _unSelArr[sourceIndexPath.item];
+        tempDict = _unSelArr[sourceIndexPath.item];
         _unSelArr = [_unSelArr mutableCopy];
         [_unSelArr removeObjectAtIndex:sourceIndexPath.item];
+    }
+    if (destinationIndexPath.section == 0) {
+        [_selArr insertObject:tempDict atIndex:destinationIndexPath.item];
+    }else{
         [_unSelArr insertObject:tempDict atIndex:destinationIndexPath.item];
     }
 }
